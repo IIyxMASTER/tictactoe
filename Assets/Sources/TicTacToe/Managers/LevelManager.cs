@@ -9,6 +9,7 @@ namespace TicTacToe.Managers
     public class LevelManager : SerializedMonoBehaviour
     {
         [Inject, SerializeField] private ILevelLoaderViewController _levelLoaderViewController;
+
         void Start()
         {
             _levelLoaderViewController.ShowMainLoadScreen();

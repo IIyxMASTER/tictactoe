@@ -1,12 +1,8 @@
-﻿
-namespace TicTacToe.UI.Interfaces
+﻿namespace TicTacToe.UI.Interfaces
 {
-    public interface  ILevelLoaderView
+    public interface ILevelLoaderView
     {
         void Show();
         void Hide();
     }
 }
-    
-
- 

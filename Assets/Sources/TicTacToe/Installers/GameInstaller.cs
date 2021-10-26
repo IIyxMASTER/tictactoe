@@ -4,11 +4,13 @@ using TicTacToe.UI.Interfaces;
 using UnityEngine;
 using Zenject;
 
-public class GameInstaller : MonoInstaller
+namespace TicTacToe.Installers
 {
-    public override void InstallBindings()
+    public class GameInstaller : MonoInstaller
     {
-        Container.Bind<ILevelLoaderViewController>().To<LevelLoaderViewController2>().AsSingle().NonLazy();
+        public override void InstallBindings()
+        {
+            Container.Bind<ILevelLoaderViewController>().To<LevelLoaderViewController>().AsSingle().NonLazy();
+        }
     }
-    
 }

@@ -1,7 +1,9 @@
 ﻿
 using TicTacToe.Controllers.Interfaces;
+using TicTacToe.UI;
 using UnityEngine;
 using Zenject;
+// ReSharper disable ClassNeverInstantiated.Global
 
 namespace TicTacToe.Controllers
 {
@@ -23,23 +25,5 @@ namespace TicTacToe.Controllers
       {
          Debug.Log("One");
       }
-   } public class LevelLoaderViewController2 : ILevelLoaderViewController
-   {
-      [Inject] private LevelLoaderView _view;
-
-      public void ShowMainLoadScreen()
-      {
-         Debug.Log("two");
-      }
-
-      public void ShowStartBattleScreen()
-      {
-         Debug.Log("two");
-      }
-
-      public void ShowEndBattleScreen()
-      {
-         Debug.Log("two");
-      }
-   }
+   } 
 }

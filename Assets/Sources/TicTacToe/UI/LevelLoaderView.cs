@@ -4,21 +4,24 @@ using TicTacToe.UI.Interfaces;
 using UnityEngine;
 using Zenject;
 
-public class LevelLoaderView : MonoBehaviour, ILevelLoaderView
+namespace TicTacToe.UI
 {
+    public class LevelLoaderView : MonoBehaviour, ILevelLoaderView
+    {
 //    [Inject] private LevelLoaderController _view;
 
-    public void Init()
-    {
-    }
+        public void Init()
+        {
+        }
 
-    public void Show()
-    {
-        Debug.Log("Show");
-    }
+        public void Show()
+        {
+            Debug.Log("Show");
+        }
 
-    public void Hide()
-    {
-        Debug.Log("Hide");
+        public void Hide()
+        {
+            Debug.Log("Hide");
+        }
     }
 }
