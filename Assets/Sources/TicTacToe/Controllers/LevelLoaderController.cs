@@ -8,10 +8,15 @@ using Zenject;
 
 namespace TicTacToe.Controllers
 {
-    public class LevelLoaderViewController : ILevelLoaderViewController
+    public class LevelLoaderController : ILevelLoaderController
     {
         [Inject] private ILevelLoaderView _view;
 
+        public void StartGame()
+        {
+            
+        }
+        
         public void ShowMainLoadScreen()
         {
             _view.Show();

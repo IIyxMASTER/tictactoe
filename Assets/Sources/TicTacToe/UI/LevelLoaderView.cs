@@ -17,7 +17,7 @@ namespace TicTacToe.UI
         [SerializeField] private VerticalLayoutGroup _verticalLayoutGroup;
         [SerializeField] private Canvas _canvas;
         [SerializeField] private UIGradient _uiGradient;
-
+[SerializeField]
         public void Show()
         {
             _canvas.enabled = true;
@@ -35,31 +35,35 @@ namespace TicTacToe.UI
                 Debug.Log(file);
             }
 
-            Timing.RunCoroutine(Animate(filesToLoad, 10));
+            //Timing.RunCoroutine(Animate(filesToLoad, 2));
         }
 
         private IEnumerator<float> Animate(string[] filesToLoad, int i)
         {
+            yield return Timing.WaitForSeconds(2);
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(ChangeColorFromBottom(i)));
+            yield return Timing.WaitForSeconds(2);
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(ChangeColorFromTop(i)));
         }
 
         private IEnumerator<float> ChangeColorFromTop(float time)
         {
-            var gradient = _uiGradient.LinearGradient;
-            var keys = gradient.colorKeys;
-            var tempArray = new GradientColorKey[keys.Length];
+            var height = _canvas.GetComponent<RectTransform>().rect.height;
+            var rTransform = _uiGradient.GetComponent<RectTransform>();
             yield return time.AsTimeProcess(normalTime =>
             {
-                for (var i = 0; i < keys.Length; i++)
-                {
-                    var key = keys[i];
-                    var value = Mathf.Lerp(key.time, 1, normalTime);
-                    key.time = value;
-                    tempArray[i] = key;
-                }
-
-                gradient.colorKeys = tempArray;
-                _uiGradient.LinearGradient = gradient;
+                var y = Mathf.Lerp(0, height, normalTime);
+                rTransform.SetRect(0,y,0,0);
+            });
+        }
+        private IEnumerator<float> ChangeColorFromBottom(float time)
+        {
+            var height = _canvas.GetComponent<RectTransform>().rect.height;
+            var rTransform = _uiGradient.GetComponent<RectTransform>();
+            yield return time.AsTimeProcess(normalTime =>
+            {
+                var y = Mathf.Lerp(height, -20, normalTime);
+                rTransform.SetRect(0,y,0,0);
             });
         }
     }

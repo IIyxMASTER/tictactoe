@@ -1,78 +1,44 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TicTacToe.Controllers.Interfaces;
 using UnityEngine;
 using Zenject;
 
 namespace TicTacToe.Controllers
 {
-    using System.Runtime.InteropServices;
-using Sirenix.OdinInspector;
-using UnityEngine;
-using UnityEngine.Serialization;
-
-
-    public class CameraController : MonoBehaviour
+    public class CameraController : ICameraController
     {
-     
-        public Vector3 Position => _camera.transform.position;
         public float Height => 2 * _camera.orthographicSize;
-
-        [Inject] private Camera _mainCamera;
-
-        private void Awake()
-        {
-            if(_camera == null)
-                _camera = Camera.main;
-        }
-
-        [FormerlySerializedAs("camera")] [SerializeField] private Camera _camera;
-        public Camera Camera => _camera;
-
-        [Button]
-        void ShowInfo()
+        public float Width => 2 * _camera.orthographicSize * _camera.aspect;
+        [Inject] private Camera _camera;
+        
+        
+        private float _fieldSize;
+        void FixCameraOrthographicSizeSize()
         {
             var height = 2 * _camera.orthographicSize;
-            // ReSharper disable once ArrangeTypeMemberModifiers
             var width = height * _camera.aspect;
-            Debug.Log($"Width =<{width}>; Height =<{height}>");
-        }
-
-        [Button]
-        public void SetWidth(float width)
-        {
-            var height = width / _camera.aspect;
-            _camera.orthographicSize = height / 2f;
-        }
-
-        // ReSharper disable once ArrangeTypeMemberModifiers
-        float Width
-        {
-            get
+            if (height > width)
             {
-                var height = 2 * _camera.orthographicSize;
-                return height * _camera.aspect;
+                var newHeight = _fieldSize / _camera.aspect;
+                _camera.orthographicSize = newHeight / 2f;
+            }
+            else
+            {
+                _camera.orthographicSize = _fieldSize / 2f;
             }
         }
 
-        private float MaxHeight => 13.5f;
-        private float BasicWidth => 18f;
-
-        private float offset;
-
-        void Start()
+        public float FieldSize
         {
-            SetWidth(BasicWidth);
-            var height = 2 * _camera.orthographicSize;
-            offset = (MaxHeight - height) / 2f;
+            set
+            {
+                _fieldSize = value;
+                FixCameraOrthographicSizeSize();
+            }
+            get => _fieldSize;
         }
 
-        [Button]
-        void Reset()
+        public CameraController()
         {
-            SetWidth(18f);
         }
-        
-      
     }
-
 }
