@@ -11,6 +11,9 @@ namespace TicTacToe.Views
     public class GameCellView : SerializedMonoBehaviour, IGameCellView, IPointerClickHandler
     {
         [SerializeField] private IGameController _gameController;
+
+        [SerializeField] private SpriteRenderer crossRenderer;
+        [SerializeField] private SpriteRenderer circleRenderer;
         private Cell _model;
 
         public Cell Model
@@ -22,13 +25,17 @@ namespace TicTacToe.Views
                 switch (_model.Status)
                 {
                     case Cell.CellStatus.Player:
-                        GetComponent<SpriteRenderer>().color = Color.green;
+                        circleRenderer.gameObject.SetActive(false);
+                        crossRenderer.gameObject.SetActive(true);
                         break;
                     case Cell.CellStatus.AI:
-                        GetComponent<SpriteRenderer>().color = Color.red;
+
+                        circleRenderer.gameObject.SetActive(true);
+                        crossRenderer.gameObject.SetActive(false);
                         break;
                     default:
-                        GetComponent<SpriteRenderer>().color = Color.white;
+                        circleRenderer.gameObject.SetActive(false);
+                        crossRenderer.gameObject.SetActive(false);
                         break;
                 }
             }

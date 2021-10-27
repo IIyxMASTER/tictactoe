@@ -49,7 +49,7 @@ namespace TicTacToe.Controllers
             }
 
             if (isWin)
-                return isWin;
+                return true;
             isWin = true;
             for (int x = 0; x < 3; x++)
             {

@@ -12,7 +12,7 @@ namespace TicTacToe.Controllers
         
         
         private float _fieldSize;
-        void FixCameraOrthographicSizeSize()
+        public void FixCameraOrthographicSizeSize()
         {
             var height = 2 * _camera.orthographicSize;
             var width = height * _camera.aspect;

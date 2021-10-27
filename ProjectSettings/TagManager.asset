@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - GameSprites
   - 
   - 
   - 
@@ -41,6 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: New Layer
+  - name: UI Elements
     uniqueID: 3738602391
     locked: 0

@@ -5,5 +5,6 @@
         float Height { get; }
         float Width { get; }
         float FieldSize { get; set; }
+        void FixCameraOrthographicSizeSize();
     }
 }
