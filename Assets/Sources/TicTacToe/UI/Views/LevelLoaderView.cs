@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using MEC;
+using Sources.TicTacToe.UI.Controllers.Interfaces;
+using Sources.TicTacToe.UI.Views.Interfaces;
+using Sources.TicTacToe.Views.Interfaces;
 using TicTacToe.Extensions;
-using TicTacToe.UI.Interfaces;
-using TicTacToe.Views;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,64 +13,51 @@ namespace Sources.TicTacToe.UI.Views
 {
     public class LevelLoaderView : MonoBehaviour, ILevelLoaderView
     {
-        [Inject] private IMaskView _maskView;
-        [SerializeField] private VerticalLayoutGroup _verticalLayoutGroup;
+        [Inject] private ILevelLoaderController _levelLoaderController;
         [SerializeField] private Canvas _canvas;
         [SerializeField] private Slider _slider;
         [SerializeField] private TMP_Text _sliderText;
         [SerializeField] private Transform _animateObject;
         [SerializeField] private float _showAnimationTime;
+        [SerializeField] private float _sliderAnimationTime;
 
+        public float AnimationShowTime => _showAnimationTime;
+        public float SliderAnimationTime => _sliderAnimationTime;
+
+        public IEnumerator<float> ShowAnimatedObject(float time, int objectId)
+        {
+            _canvas.enabled = true;
+            _animateObject.gameObject.SetActive(true);
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(_levelLoaderController.Show()));
+            yield return Timing.WaitForSeconds(time);
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(_levelLoaderController.Hide()));
+            _animateObject.gameObject.SetActive(false);
+            _canvas.enabled = false;
+        }
 
         public void Show()
         {
             _canvas.enabled = true;
+
+            _slider.gameObject.SetActive(true);
+            _animateObject.gameObject.SetActive(true);
         }
 
         public void Hide()
         {
-            Debug.Log("Hide");
-        }
-
-        public void ShowProgressBar(string[] filesToLoad)
-        {
-            _maskView.InstantHide();
-            Timing.RunCoroutine(AnimateSlider(filesToLoad));
-        }
-
-        private IEnumerator<float> ShowScreen()
-        {
-            _animateObject.gameObject.SetActive(false);
-            yield return Timing.WaitForSeconds(2);
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(_maskView.Show(_showAnimationTime)));
-        }
-
-        [SerializeField] private float _sliderTimeAnimation = 0.1f;
-
-        IEnumerator<float> AnimateSlider(string[] filesToLoad)
-        {
-            yield return Timing.WaitForSeconds(2);
-            _slider.gameObject.SetActive(true);
-            _animateObject.gameObject.SetActive(true);
-            var partsCount = 1f / filesToLoad.Length;
-            for (var i = 0; i < filesToLoad.Length; i++)
-            {
-                yield return Timing.WaitForSeconds(1);
-                
-                _sliderText.text = $"Load: \\{filesToLoad[i]}";
-                
-                var startPoint = partsCount * i;
-                var endPoint = partsCount * (i + 1);
-                
-                yield return _sliderTimeAnimation.AsTimeProcess(normalTime =>
-                {
-                    var sliderValue = Mathf.Lerp(startPoint, endPoint, normalTime);
-                    _slider.value = sliderValue;
-                });
-            }
-
+            _canvas.enabled = false;
             _slider.gameObject.SetActive(false);
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(ShowScreen()));
+            _animateObject.gameObject.SetActive(false);
+        }
+
+        public void SetProgressBarText(string text)
+        {
+            _sliderText.text = text;
+        }
+
+        public void SetProgressBarValue(float value)
+        {
+            _slider.value = value;
         }
     }
 }

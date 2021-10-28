@@ -1,6 +1,6 @@
 ﻿namespace Sources.TicTacToe.Views.Interfaces
 {
-    public class IOptionsView
+    public interface IOptionsView
     {
         
     }

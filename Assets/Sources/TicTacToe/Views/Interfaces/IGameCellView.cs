@@ -1,9 +1,8 @@
-﻿using Sources.TicTacToe.Models;
-using TicTacToe.Controllers;
-using TicTacToe.Controllers.Interfaces;
+﻿using Sources.TicTacToe.Controllers.Interfaces;
+using Sources.TicTacToe.Models;
 using UnityEngine;
 
-namespace TicTacToe.Views
+namespace Sources.TicTacToe.Views.Interfaces
 {
     public interface IGameCellView
     {

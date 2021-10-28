@@ -1,10 +1,13 @@
-﻿namespace Sources.TicTacToe.UI.Controllers.Interfaces
+﻿using System.Collections.Generic;
+
+namespace Sources.TicTacToe.UI.Controllers.Interfaces
 {
     public interface ILevelLoaderController
     {
+        IEnumerator<float>  Show();
+        IEnumerator<float> Hide();
         void StartGame();
-        void ShowMainLoadScreen();
-        void ShowStartBattleScreen();
-        void ShowEndBattleScreen();
+        IEnumerator<float> ShowBattleScreen();
+        IEnumerator<float>  ShowEndBattleScreen();
     }
 }

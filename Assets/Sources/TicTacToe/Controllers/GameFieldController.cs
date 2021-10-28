@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
+using Sources.TicTacToe.Controllers.Interfaces;
 using Sources.TicTacToe.Models;
-using TicTacToe.Controllers.Interfaces;
-using TicTacToe.Views;
-using TicTacToe.Views.Interfaces;
+using Sources.TicTacToe.Views;
+using Sources.TicTacToe.Views.Interfaces;
 using UnityEngine;
 using Zenject;
 
-namespace TicTacToe.Controllers
+namespace Sources.TicTacToe.Controllers
 {
     public class GameFieldController : IGameFieldController
     {
@@ -18,18 +18,20 @@ namespace TicTacToe.Controllers
         [SerializeField] private float _cellPadding;
         private float FieldSize => _cellSize * 3 + _cellPadding * 4;
 
-        public GameFieldController()
-        {
-        }
+
+        private bool _isCellsCreated = false;
 
         public void CreateCells()
         {
+            if (_isCellsCreated)
+                return;
             for (int i = 0; i < 9; i++)
             {
                 var cell = _cellFactory.Create();
                 cell.Model = new Cell();
                 _view.AddCell(cell);
             }
+            _isCellsCreated = true;
         }
 
         public void ChangeCellStatus(Cell cell, Players player)
@@ -63,9 +65,22 @@ namespace TicTacToe.Controllers
         public void Format()
         {
             _view.Format(_cellSize, _cellPadding);
+            UpdateFieldSize();
+        }
+
+        public void UpdateFieldSize()
+        {
             _cameraController.FieldSize = FieldSize;
         }
 
+        public void HideView()
+        {
+            _view.Hide();
+        }
+        public void ShowView()
+        {
+            _view.Show();
+        }
         public void SetCellPadding(float padding)
         {
             _cellPadding = padding;

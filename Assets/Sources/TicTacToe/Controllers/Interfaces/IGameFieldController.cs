@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Sources.TicTacToe.Models;
 
-namespace TicTacToe.Controllers.Interfaces
+namespace Sources.TicTacToe.Controllers.Interfaces
 {
     public interface IGameFieldController
     {
@@ -15,6 +15,10 @@ namespace TicTacToe.Controllers.Interfaces
         Cell.CellStatus GetCellStatus(int row, int column);
         
         List<Cell> GetFreeCells();
+        
+        void UpdateFieldSize();
 
+        void HideView();
+        void ShowView();
     }
 }

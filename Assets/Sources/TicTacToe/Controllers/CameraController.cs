@@ -1,8 +1,8 @@
-﻿using TicTacToe.Controllers.Interfaces;
+﻿using Sources.TicTacToe.Controllers.Interfaces;
 using UnityEngine;
 using Zenject;
 
-namespace TicTacToe.Controllers
+namespace Sources.TicTacToe.Controllers
 {
     public class CameraController : ICameraController
     {

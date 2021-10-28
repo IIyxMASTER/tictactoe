@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Controllers.Interfaces
+﻿namespace Sources.TicTacToe.Controllers.Interfaces
 {
     public interface ICameraController
     {

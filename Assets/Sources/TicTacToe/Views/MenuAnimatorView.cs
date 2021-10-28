@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuAnimatorView : MonoBehaviour
+namespace Sources.TicTacToe.Views
 {
-    
+    public class MenuAnimatorView : MonoBehaviour
+    {
+
+    }
 }

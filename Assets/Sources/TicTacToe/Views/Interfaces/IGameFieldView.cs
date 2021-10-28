@@ -1,6 +1,6 @@
 ﻿using Sources.TicTacToe.Models;
 
-namespace TicTacToe.Views.Interfaces
+namespace Sources.TicTacToe.Views.Interfaces
 {
     public interface IGameFieldView
     {
@@ -9,5 +9,8 @@ namespace TicTacToe.Views.Interfaces
         Cell GetCellAt(int row, int column);
 
         void ChangeCellView(Cell cell);
+
+        void Show();
+        void Hide();
     }
 }

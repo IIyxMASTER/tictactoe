@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using MEC;
+using Sources.TicTacToe.Controllers.Interfaces;
 using Sources.TicTacToe.Models;
 using Sources.TicTacToe.UI.Controllers.Interfaces;
-using TicTacToe.Controllers.Interfaces;
-using TicTacToe.UI.Interfaces;
 using UnityEngine;
 using Zenject;
 
-namespace TicTacToe.Controllers
+namespace Sources.TicTacToe.Controllers
 {
     public class GameController : IGameController
     {

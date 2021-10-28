@@ -1,18 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Sources.TicTacToe.Views.Interfaces;
 using UnityEngine;
 
-public class OptionsView : MonoBehaviour
+namespace Sources.TicTacToe.Views
 {
-    // Start is called before the first frame update
-    void Start()
+    public class OptionsView : MonoBehaviour, IOptionsView
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

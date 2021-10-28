@@ -1,12 +1,12 @@
 ﻿using Sirenix.OdinInspector;
+using Sources.TicTacToe.Controllers.Interfaces;
 using Sources.TicTacToe.Models;
-using TicTacToe.Controllers;
-using TicTacToe.Controllers.Interfaces;
+using Sources.TicTacToe.Views.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 
-namespace TicTacToe.Views
+namespace Sources.TicTacToe.Views
 {
     public class GameCellView : SerializedMonoBehaviour, IGameCellView, IPointerClickHandler
     {
