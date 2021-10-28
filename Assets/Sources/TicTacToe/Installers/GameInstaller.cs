@@ -14,9 +14,9 @@ namespace Sources.TicTacToe.Installers
 
         public override void InstallBindings()
         {
-            Container.Bind<ILevelLoaderController>().To<LevelLoaderController>().AsSingle().NonLazy();
-            Container.Bind<ICameraController>().To<CameraController>().AsSingle().NonLazy();
-            Container.Bind<IMainMenuController>().To<MainMenuController>().AsSingle().NonLazy(); 
+            Container.Bind<ILevelLoaderController>().To<LevelLoaderController>().AsSingle();
+            Container.Bind<ICameraController>().To<CameraController>().AsSingle();
+            Container.Bind<IMainMenuController>().To<MainMenuController>().AsSingle(); 
             Container.Bind<IGameController>().To<GameController>().AsSingle()
                 .OnInstantiated<IGameController>((context, gameController) => { gameController.StartGame(); })
                 .NonLazy();
@@ -30,7 +30,7 @@ namespace Sources.TicTacToe.Installers
                         controller.SetCellPadding(0.5f);
                         controller.Format();
                         controller.HideView();
-                    }).NonLazy();
+                    });
         }
     }
 }

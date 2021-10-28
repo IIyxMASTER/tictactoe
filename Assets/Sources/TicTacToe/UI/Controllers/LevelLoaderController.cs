@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using MEC;
 using Sources.TicTacToe.Controllers.Interfaces;
@@ -32,22 +33,34 @@ namespace Sources.TicTacToe.UI.Controllers
         private void StartGame(string[] filesToLoad)
         {
             _maskView.InstantHide();
-            _mainMenuController.Hide();
-            _levelLoaderView.Show();
+            _mainMenuController.HideView();
+            _levelLoaderView.HideView();
+            _levelLoaderView.ShowView();
 
-            Timing.RunCoroutine(StartGameAnimation(filesToLoad));
+            Timing.RunCoroutine(PlayOpenSceneAnimation(filesToLoad,
+                () =>
+                {
+                    _levelLoaderView.HideView();
+                    _mainMenuController.ShowView();
+                }));
         }
 
-        IEnumerator<float> StartGameAnimation(string[] filesToLoad)
+        private IEnumerator<float> PlayOpenSceneAnimation(string[] messages, Action onLoad)
         {
-            yield return Timing.WaitForSeconds(2);
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(Show()));
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(AnimateSlider(filesToLoad)));
-            _mainMenuController.Show();
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(AnimateSlider(messages, onLoad)));
+        }
+
+        public IEnumerator<float> PlayChangeSceneAnimation(string[] messages, Action onHide, Action onLoad, int animationSpriteId = 0)
+        {
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(Hide()));
+            _levelLoaderView.ShowView(animationSpriteId);
+            onHide?.Invoke();
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(PlayOpenSceneAnimation(messages, onLoad)));
         }
 
 
-        IEnumerator<float> AnimateSlider(string[] filesToLoad)
+        IEnumerator<float> AnimateSlider(string[] filesToLoad, Action onLoad)
         {
             yield return Timing.WaitForSeconds(2);
 
@@ -70,20 +83,11 @@ namespace Sources.TicTacToe.UI.Controllers
             }
 
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(Hide()));
-            _levelLoaderView.Hide();
-            _mainMenuController.Show();
+            _levelLoaderView.HideView();
+            onLoad?.Invoke();
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(Show()));
         }
 
-
-        public IEnumerator<float> ShowBattleScreen()
-        {
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(Hide()));
-            _mainMenuController.Hide();
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(_levelLoaderView.ShowAnimatedObject(3, 1)));
-            _gameFieldController.ShowView();
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(Show()));
-        }
 
         public IEnumerator<float> Show()
         {
@@ -93,11 +97,6 @@ namespace Sources.TicTacToe.UI.Controllers
         public IEnumerator<float> Hide()
         {
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(_maskView.Hide(_levelLoaderView.AnimationShowTime)));
-        }
-
-        public IEnumerator<float> ShowEndBattleScreen()
-        {
-            yield return 0;
         }
     }
 }

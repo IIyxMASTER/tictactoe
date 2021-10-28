@@ -4,8 +4,8 @@ namespace Sources.TicTacToe.UI.Views.Interfaces
 {
     public interface ILevelLoaderView
     {
-        void Hide();
-        void Show();
+        void HideView();
+        void ShowView(int animationSpriteId = 0);
         void SetProgressBarText(string text);
         void SetProgressBarValue(float value);
         float AnimationShowTime { get; }

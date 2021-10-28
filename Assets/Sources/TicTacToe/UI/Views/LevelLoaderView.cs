@@ -35,12 +35,12 @@ namespace Sources.TicTacToe.UI.Views
             _canvas.enabled = false;
         }
 
-        public void Show()
+        public void ShowView(int animationSpriteId = 0)
         {
             _canvas.enabled = true;
 
             _slider.gameObject.SetActive(true);
-            ActivateAnimatedObject(true, 0);
+            ActivateAnimatedObject(true, animationSpriteId);
         }
 
         void ActivateAnimatedObject(bool setActive, int id)
@@ -61,7 +61,7 @@ namespace Sources.TicTacToe.UI.Views
             }
         }
 
-        public void Hide()
+        public void HideView()
         {
             _canvas.enabled = false;
             _slider.gameObject.SetActive(false);

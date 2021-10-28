@@ -2,8 +2,8 @@
 {
     public interface IMainMenuController
     {
-        void Show();
-        void Hide();
+        void ShowView();
+        void HideView();
         void OnClickOptions();
         void OnClickPlay();
     }

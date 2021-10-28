@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sources.TicTacToe.UI.Controllers.Interfaces
 {
@@ -7,7 +8,8 @@ namespace Sources.TicTacToe.UI.Controllers.Interfaces
         IEnumerator<float>  Show();
         IEnumerator<float> Hide();
         void StartGame();
-        IEnumerator<float> ShowBattleScreen();
-        IEnumerator<float>  ShowEndBattleScreen();
+
+        IEnumerator<float> PlayChangeSceneAnimation(string[] messages, Action onHide, Action onLoad, int animationSpriteId);
+  
     }
 }
