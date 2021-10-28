@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using MEC;
 using Sources.TicTacToe.Models;
+using Sources.TicTacToe.UI.Controllers.Interfaces;
 using TicTacToe.Controllers.Interfaces;
+using TicTacToe.UI.Interfaces;
 using UnityEngine;
 using Zenject;
 
@@ -9,6 +11,13 @@ namespace TicTacToe.Controllers
 {
     public class GameController : IGameController
     {
+
+        public void StartGame()
+        {
+            _levelLoaderController.StartGame();
+        }
+
+        [Inject] private ILevelLoaderController _levelLoaderController;
         [Inject] private IGameFieldController _gameFieldController;
         private Players whoseTurnNow = Players.Player;
 
@@ -100,10 +109,5 @@ namespace TicTacToe.Controllers
                 Debug.Log("SHOW LOSE MESSAGE");
             }
         }
-    }
-
-    public interface IGameController
-    {
-        void OnCellClick(Cell cellModel);
     }
 }

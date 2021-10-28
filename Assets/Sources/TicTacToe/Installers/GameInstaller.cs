@@ -1,3 +1,5 @@
+using Sources.TicTacToe.UI.Controllers;
+using Sources.TicTacToe.UI.Controllers.Interfaces;
 using TicTacToe.Controllers;
 using TicTacToe.Controllers.Interfaces;
 using TicTacToe.UI.Interfaces;
@@ -14,7 +16,10 @@ namespace TicTacToe.Installers
         {
             Container.Bind<ILevelLoaderController>().To<LevelLoaderController>().AsSingle().NonLazy();
             Container.Bind<ICameraController>().To<CameraController>().AsSingle().NonLazy();
-            Container.Bind<IGameController>().To<GameController>().AsSingle().NonLazy();
+            Container.Bind<IGameController>().To<GameController>().AsSingle().OnInstantiated<IGameController>((context, o) =>
+            {
+                o.StartGame();
+            }).NonLazy();
             Container.BindFactory<GameCellView, GameCellView.Factory>().FromComponentInNewPrefab(CellPrefab);
             Container.Bind<IGameFieldController>().To<GameFieldController>().AsSingle()
                 .OnInstantiated<IGameFieldController>(

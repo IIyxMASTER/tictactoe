@@ -44,3 +44,6 @@ TagManager:
   - name: UI Elements
     uniqueID: 3738602391
     locked: 0
+  - name: Mask
+    uniqueID: 538517943
+    locked: 0
