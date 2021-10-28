@@ -17,7 +17,7 @@ namespace Sources.TicTacToe.UI.Views
         [SerializeField] private Canvas _canvas;
         [SerializeField] private Slider _slider;
         [SerializeField] private TMP_Text _sliderText;
-        [SerializeField] private Transform _animateObject;
+        [SerializeField] private Transform[] _animateObject;
         [SerializeField] private float _showAnimationTime;
         [SerializeField] private float _sliderAnimationTime;
 
@@ -27,11 +27,11 @@ namespace Sources.TicTacToe.UI.Views
         public IEnumerator<float> ShowAnimatedObject(float time, int objectId)
         {
             _canvas.enabled = true;
-            _animateObject.gameObject.SetActive(true);
+            ActivateAnimatedObject(true,objectId );
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(_levelLoaderController.Show()));
             yield return Timing.WaitForSeconds(time);
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(_levelLoaderController.Hide()));
-            _animateObject.gameObject.SetActive(false);
+            ActivateAnimatedObject(false,objectId );
             _canvas.enabled = false;
         }
 
@@ -40,14 +40,32 @@ namespace Sources.TicTacToe.UI.Views
             _canvas.enabled = true;
 
             _slider.gameObject.SetActive(true);
-            _animateObject.gameObject.SetActive(true);
+            ActivateAnimatedObject(true, 0);
+        }
+
+        void ActivateAnimatedObject(bool setActive, int id)
+        {
+            if (!setActive)
+            {
+                foreach (var animatedObject in _animateObject)
+                {
+                    animatedObject.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < _animateObject.Length; i++)
+                {
+                    _animateObject[i].gameObject.SetActive(i == id);
+                }
+            }
         }
 
         public void Hide()
         {
             _canvas.enabled = false;
             _slider.gameObject.SetActive(false);
-            _animateObject.gameObject.SetActive(false);
+            ActivateAnimatedObject(false,0 );
         }
 
         public void SetProgressBarText(string text)
