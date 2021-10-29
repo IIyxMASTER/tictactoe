@@ -4,6 +4,7 @@ using MEC;
 using Sources.TicTacToe.Controllers.Interfaces;
 using Sources.TicTacToe.Models;
 using Sources.TicTacToe.UI.Controllers.Interfaces;
+using Sources.TicTacToe.UI.Views.Interfaces;
 using Sources.TicTacToe.Views.Interfaces;
 using UnityEngine;
 using Zenject;
@@ -39,11 +40,22 @@ namespace Sources.TicTacToe.UI.Controllers
         IEnumerator<float> Play()
         {
             int spriteId = 1;
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(
+            yield return Timing.WaitUntilDone(
                 _levelLoaderController.PlayChangeSceneAnimation(
-                    new[] {"Загружаем уровень", "Тренируем AI"},
                     () => { HideView(); },
-                    () => { _gameFieldController.ShowView(); }, spriteId)));
+                    spriteId)
+            );
+            var fakeActions = new[] {"Загружаем уровень", "Тренируем AI"};
+            for (int i = 0; i < fakeActions.Length; i++)
+            {
+                yield return Timing.WaitUntilDone(
+                    _levelLoaderController.AnimateSlider(fakeActions[i], (float) i / (fakeActions.Length - 1)));
+            }
+
+            yield return Timing.WaitUntilDone(_levelLoaderController.EndSliderAnimation(
+                () => { _gameFieldController.ShowView(); }
+            ));
         }
+        //
     }
 }

@@ -16,7 +16,7 @@ namespace Sources.TicTacToe.Controllers
 
         [SerializeField] private float _cellSize;
         [SerializeField] private float _cellPadding;
-        private float FieldSize => _cellSize * 3 + _cellPadding * 4;
+        private float FieldSize => _cellSize * 5 + _cellPadding * 8;
 
 
         private bool _isCellsCreated = false;

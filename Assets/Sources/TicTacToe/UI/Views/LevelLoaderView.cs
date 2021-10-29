@@ -28,9 +28,9 @@ namespace Sources.TicTacToe.UI.Views
         {
             _canvas.enabled = true;
             ActivateAnimatedObject(true,objectId );
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(_levelLoaderController.Show()));
+            yield return _levelLoaderController.ShowAnimation;
             yield return Timing.WaitForSeconds(time);
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(_levelLoaderController.Hide()));
+            yield return _levelLoaderController.HideAnimation;
             ActivateAnimatedObject(false,objectId );
             _canvas.enabled = false;
         }
@@ -73,9 +73,10 @@ namespace Sources.TicTacToe.UI.Views
             _sliderText.text = text;
         }
 
-        public void SetProgressBarValue(float value)
+        public float ProgressBarValue
         {
-            _slider.value = value;
+            get => _slider.value;
+            set => _slider.value = value;
         }
     }
 }

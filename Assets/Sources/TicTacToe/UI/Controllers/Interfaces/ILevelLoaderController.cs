@@ -5,11 +5,13 @@ namespace Sources.TicTacToe.UI.Controllers.Interfaces
 {
     public interface ILevelLoaderController
     {
-        IEnumerator<float>  Show();
-        IEnumerator<float> Hide();
+        float ShowAnimation { get; }
+    
+        float HideAnimation { get; }
         void StartGame();
-
-        IEnumerator<float> PlayChangeSceneAnimation(string[] messages, Action onHide, Action onLoad, int animationSpriteId);
+        IEnumerator<float> AnimateSlider(string message, float sliderProgress);
+        IEnumerator<float> EndSliderAnimation(Action onLoad);
+        IEnumerator<float> PlayChangeSceneAnimation( Action onHide,  int animationSpriteId);
   
     }
 }

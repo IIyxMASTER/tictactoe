@@ -1,4 +1,4 @@
-﻿namespace Sources.TicTacToe.Views.Interfaces
+﻿namespace Sources.TicTacToe.UI.Views.Interfaces
 {
     public interface IMainMenuView
     {

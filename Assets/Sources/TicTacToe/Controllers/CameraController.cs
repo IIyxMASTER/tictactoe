@@ -16,6 +16,10 @@ namespace Sources.TicTacToe.Controllers
         {
             var height = 2 * _camera.orthographicSize;
             var width = height * _camera.aspect;
+            //10 = 2 * 5
+            //h = w / camera.aspect
+            //width  / camera.aspect = 2 * _camera.orto
+            
             if (height > width)
             {
                 var newHeight = _fieldSize / _camera.aspect;
@@ -23,7 +27,7 @@ namespace Sources.TicTacToe.Controllers
             }
             else
             {
-                _camera.orthographicSize = _fieldSize / 2f;
+                _camera.orthographicSize = _fieldSize / _camera.aspect / 2f;
             }
         }
 

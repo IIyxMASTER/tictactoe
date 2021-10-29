@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Sources.TicTacToe.UI.Controllers.Interfaces;
-using Sources.TicTacToe.Views.Interfaces;
+﻿using Sources.TicTacToe.UI.Controllers.Interfaces;
+using Sources.TicTacToe.UI.Views.Interfaces;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
-namespace Sources.TicTacToe.Views
+namespace Sources.TicTacToe.UI.Views
 {
     public class MainMenuView : MonoBehaviour, IMainMenuView
     {
