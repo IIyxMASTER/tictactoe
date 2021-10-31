@@ -6,6 +6,6 @@ namespace Sources.TicTacToe.UI.Controllers.Interfaces
     {
         void Show();
         void Hide();
-        
+
     }
 }
