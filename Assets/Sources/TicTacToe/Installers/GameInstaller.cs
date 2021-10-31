@@ -16,7 +16,7 @@ namespace Sources.TicTacToe.Installers
         {
             Container.Bind<ILevelLoaderController>().To<LevelLoaderController>().AsSingle();
             Container.Bind<ICameraController>().To<CameraController>().AsSingle();
-            Container.Bind<IMainMenuController>().To<MainMenuController>().AsSingle(); 
+            Container.Bind<IMainMenuController>().To<MainMenuController>().AsSingle();
             Container.Bind<IGameController>().To<GameController>().AsSingle()
                 .OnInstantiated<IGameController>((context, gameController) => { gameController.StartGame(); })
                 .NonLazy();
@@ -31,6 +31,7 @@ namespace Sources.TicTacToe.Installers
                         controller.Format();
                         controller.HideView();
                     });
+            Container.Bind<IGameUIController>().To<GameUIController>().AsSingle().NonLazy();
         }
     }
 }

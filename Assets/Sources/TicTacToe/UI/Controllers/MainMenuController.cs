@@ -15,6 +15,7 @@ namespace Sources.TicTacToe.UI.Controllers
     {
         [Inject] private ILevelLoaderController _levelLoaderController;
         [Inject] private IGameFieldController _gameFieldController;
+        [Inject] private IGameUIController _gameUIController;
         [Inject] private IMainMenuView _view;
 
         public void ShowView()
@@ -53,7 +54,11 @@ namespace Sources.TicTacToe.UI.Controllers
             }
 
             yield return Timing.WaitUntilDone(_levelLoaderController.EndSliderAnimation(
-                () => { _gameFieldController.ShowView(); }
+                () =>
+                {
+                    _gameFieldController.ShowView();
+                    _gameUIController.Show();
+                }
             ));
         }
         //
