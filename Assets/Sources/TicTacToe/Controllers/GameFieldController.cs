@@ -10,7 +10,7 @@ namespace Sources.TicTacToe.Controllers
 {
     public class GameFieldController : IGameFieldController
     {
-        [Inject] private GameCellView.Factory _cellFactory;
+        [Inject] private GameCellViewFactory _cellFactory;
         [Inject] private IGameFieldView _view;
         [Inject] private ICameraController _cameraController;
 

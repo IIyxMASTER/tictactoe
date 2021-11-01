@@ -14,6 +14,7 @@ namespace Sources.TicTacToe.UI.Controllers
     public class MainMenuController : IMainMenuController
     {
         [Inject] private ILevelLoaderController _levelLoaderController;
+        [Inject] private IOptionsUIController _optionsUIController;
         [Inject] private IGameFieldController _gameFieldController;
         [Inject] private IGameUIController _gameUIController;
         [Inject] private IMainMenuView _view;
@@ -30,7 +31,7 @@ namespace Sources.TicTacToe.UI.Controllers
 
         public void OnClickOptions()
         {
-            Debug.Log("Options");
+            _optionsUIController.ShowView();
         }
 
         public void OnClickPlay()

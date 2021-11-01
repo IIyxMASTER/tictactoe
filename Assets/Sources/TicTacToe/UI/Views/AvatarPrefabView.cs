@@ -1,17 +1,22 @@
-﻿using Sources.TicTacToe.UI.Controllers.Interfaces;
+﻿using System.Runtime.InteropServices;
+using Sources.TicTacToe.UI.Controllers.Interfaces;
 using Sources.TicTacToe.UI.Views.Interfaces;
+using Sources.TicTacToe.Views.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Sources.TicTacToe.UI.Views
 {
     public class AvatarPrefabView : MonoBehaviour, IAvatarPrefabView, IPointerClickHandler
     {
-        [Inject] private IOptionsUIController _optionsUIController;
-        [SerializeField] private SpriteRenderer _spriteRenderer;
+        [Inject] private IOptionsView _optionsView;
+        [SerializeField] private Image _spriteRenderer;
 
         private string _id;
+        public RectTransform Transform => transform as RectTransform;
+
         public void SetSprite(Sprite sprite, string id)
         {
             _spriteRenderer.sprite = sprite;
@@ -21,11 +26,11 @@ namespace Sources.TicTacToe.UI.Views
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            _optionsUIController.SelectAvatar(_id);
+            _optionsView.SelectAvatar(_id);
         }
-        
-        public class Factory : PlaceholderFactory<AvatarPrefabView>
-        {
-        }
+    }
+
+    public class AvatarViewFactory : PlaceholderFactory<IAvatarPrefabView>
+    {
     }
 }

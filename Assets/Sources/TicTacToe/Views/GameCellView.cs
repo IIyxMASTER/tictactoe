@@ -52,13 +52,14 @@ namespace Sources.TicTacToe.Views
             _gameController = controller;
         }
 
-        public class Factory : PlaceholderFactory<GameCellView>
-        {
-        }
+        
 
         public void OnPointerClick(PointerEventData eventData)
         {
             _gameController.OnCellClick(Model);
         }
+    }
+    public class GameCellViewFactory : PlaceholderFactory<IGameCellView>
+    {
     }
 }

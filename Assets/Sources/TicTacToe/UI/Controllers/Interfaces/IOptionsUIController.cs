@@ -2,7 +2,15 @@
 {
     public interface IOptionsUIController
     {
+        void ShowView();
+        void HideView();
         
-        void SelectAvatar(string id);
+        void LoadAvatars();
+        void ApplySettings();
+
+        string PlayerName { get; set; }
+        float Volume { get; set; }
+        string PlayerAvatar { get; set; }
+        void ApplyAvatar();
     }
 }

@@ -12,6 +12,7 @@ namespace Sources.TicTacToe.Views
         [Inject] private ICameraController _cameraController;
 
         [SerializeField] private Transform _holeSprite;
+        [SerializeField] private Transform _maskSprite;
 
         private float GetMaxSize => Mathf.Max(_cameraController.Width, _cameraController.Height);
 
@@ -24,10 +25,12 @@ namespace Sources.TicTacToe.Views
                 _holeSprite.localScale = new Vector3(size, size, size);
             });
             _holeSprite.localScale = new Vector3(targetSize, targetSize, targetSize);
+            _maskSprite.gameObject.SetActive(false);
         }
 
         public IEnumerator<float> Hide(float time)
         {
+            _maskSprite.gameObject.SetActive(true);
             var targetSize = GetMaxSize;
             yield return time.AsTimeProcess(normalTime =>
             {
@@ -40,12 +43,15 @@ namespace Sources.TicTacToe.Views
         public void InstantHide()
         {
             _holeSprite.localScale = Vector3.zero;
+            _maskSprite.gameObject.SetActive(true);
         }
 
         public void InstantShow()
         {
             var targetSize = GetMaxSize;
             _holeSprite.localScale = new Vector3(targetSize, targetSize, targetSize);
+
+            _maskSprite.gameObject.SetActive(false);
         }
     }
 }
