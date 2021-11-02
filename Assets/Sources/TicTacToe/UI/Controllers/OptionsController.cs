@@ -13,6 +13,7 @@ namespace Sources.TicTacToe.UI.Controllers
         [Inject] private IOptionsView _optionsView;
         [Inject] private AvatarViewFactory _avatarViewFactory;
         [Inject] private IDatabaseController _database;
+        [Inject] private IMessageBoxController _messageBoxController;
         
         public void ShowView()
         {
@@ -63,9 +64,18 @@ namespace Sources.TicTacToe.UI.Controllers
 
         public void ApplySettings()
         {
-            _database.PlayerAvatar = PlayerAvatar;
-            _database.PlayerName = PlayerName;
-            _database.SoundVolume = Volume;
+            _messageBoxController.ShowYesNoBox("Вы хотите сохранить настройки?",
+                () =>
+                {
+                    _database.PlayerAvatar = PlayerAvatar;
+                    _database.PlayerName = PlayerName;
+                    _database.SoundVolume = Volume;
+                    _optionsView.HideView();
+                },
+                () =>
+                {
+                    
+                });
         }
 
         public void ApplyAvatar()

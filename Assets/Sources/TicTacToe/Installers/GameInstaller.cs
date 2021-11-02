@@ -16,8 +16,11 @@ namespace Sources.TicTacToe.Installers
         public GameObject CellPrefab;
         public GameObject AvatarPrefab;
 
+        [SerializeField] private Sprite _alertSprite;
+
         public override void InstallBindings()
         {
+            Container.Bind<Sprite>().WithId("AlertSprite").FromInstance(_alertSprite);
             Container.Bind<ILevelLoaderController>().To<LevelLoaderController>().AsSingle();
             Container.Bind<IOptionsUIController>().To<OptionsController>().AsSingle()
                 .OnInstantiated<IOptionsUIController>(
