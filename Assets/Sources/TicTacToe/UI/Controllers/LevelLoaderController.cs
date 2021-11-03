@@ -103,6 +103,7 @@ namespace Sources.TicTacToe.UI.Controllers
                 var sliderValue = Mathf.Lerp(startPoint, sliderProgress, normalTime);
                 _levelLoaderView.ProgressBarValue = sliderValue;
             });
+            _levelLoaderView.ProgressBarValue = sliderProgress;
         }
 
         public IEnumerator<float> EndSliderAnimation(Action onLoad)

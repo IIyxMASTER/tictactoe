@@ -24,16 +24,7 @@ namespace Sources.TicTacToe.UI.Views
         public float AnimationShowTime => _showAnimationTime;
         public float SliderAnimationTime => _sliderAnimationTime;
 
-        public IEnumerator<float> ShowAnimatedObject(float time, int objectId)
-        {
-            _canvas.enabled = true;
-            ActivateAnimatedObject(true,objectId );
-            yield return _levelLoaderController.ShowAnimation;
-            yield return Timing.WaitForSeconds(time);
-            yield return _levelLoaderController.HideAnimation;
-            ActivateAnimatedObject(false,objectId );
-            _canvas.enabled = false;
-        }
+  
 
         public void ShowView(int animationSpriteId = 0)
         {

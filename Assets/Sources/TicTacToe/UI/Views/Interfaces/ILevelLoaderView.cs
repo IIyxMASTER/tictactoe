@@ -11,6 +11,5 @@ namespace Sources.TicTacToe.UI.Views.Interfaces
 
         float AnimationShowTime { get; }
         float SliderAnimationTime { get; }
-        IEnumerator<float> ShowAnimatedObject(float time, int objectId);
     }
 }
