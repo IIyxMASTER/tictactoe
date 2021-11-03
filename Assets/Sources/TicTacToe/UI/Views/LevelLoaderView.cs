@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-
+#pragma warning disable 0649
 namespace Sources.TicTacToe.UI.Views
 {
     public class LevelLoaderView : MonoBehaviour, ILevelLoaderView

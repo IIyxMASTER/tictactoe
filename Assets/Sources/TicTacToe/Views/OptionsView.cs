@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-
+#pragma warning disable 0649
 namespace Sources.TicTacToe.Views
 {
     public class OptionsView : MonoBehaviour, IOptionsView

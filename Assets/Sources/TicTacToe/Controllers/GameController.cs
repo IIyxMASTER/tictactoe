@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using MEC;
 using Sources.TicTacToe.Controllers.Interfaces;
 using Sources.TicTacToe.Models;
@@ -6,27 +7,40 @@ using Sources.TicTacToe.UI.Controllers.Interfaces;
 using UnityEngine;
 using Zenject;
 
+#pragma warning disable 0649
+
 namespace Sources.TicTacToe.Controllers
 {
     public class GameController : IGameController
     {
-
         public void StartGame()
         {
             _levelLoaderController.StartGame();
+           
         }
 
         [Inject] private ILevelLoaderController _levelLoaderController;
         [Inject] private IGameFieldController _gameFieldController;
-        private Players whoseTurnNow = Players.Player;
+        [Inject] private IEndGameController _endGameController;
+        [Inject] private IDatabaseController _databaseController;
+
+        private Players _whoseTurnNow = Players.Player;
+        private const int ScoresForVictory = 100;
+        private const int ScoresForDefeat = 75;
+
+        public void Init()
+        {
+            _whoseTurnNow = Players.Player;
+            _gameFieldController.ClearCells();
+        }
 
         public void OnCellClick(Cell cellModel)
         {
-            if (whoseTurnNow != Players.Player)
+            if (_whoseTurnNow != Players.Player)
                 return;
             if (cellModel.Status != Cell.CellStatus.Free)
                 return;
-            whoseTurnNow = Players.AI;
+            _whoseTurnNow = Players.AI;
             _gameFieldController.ChangeCellStatus(cellModel, Players.Player);
             if (!CheckResult(cellModel))
             {
@@ -34,7 +48,10 @@ namespace Sources.TicTacToe.Controllers
             }
             else
             {
-                Debug.Log("SHOW WIN MESSAGE");
+                var currentScores = _databaseController.PlayerScores.Value;
+                _endGameController.DisplayVictory(currentScores, currentScores + ScoresForVictory);
+                _databaseController.PlayerScores.Value = currentScores + ScoresForVictory;
+                _databaseController.PlayerVictories.Value = _databaseController.PlayerVictories.Value + 1;
             }
         }
 
@@ -99,13 +116,22 @@ namespace Sources.TicTacToe.Controllers
         {
             yield return Timing.WaitForSeconds(2);
             var freeCells = _gameFieldController.GetFreeCells();
+            if (freeCells.Count == 0)
+            {
+                var currentScores = _databaseController.PlayerScores.Value;
+                _endGameController.DisplayDraw(currentScores);
+                yield break;
+            }
+
             var point = Random.Range(0, freeCells.Count);
             var cell = freeCells[point];
-            whoseTurnNow = Players.Player;
+            _whoseTurnNow = Players.Player;
             _gameFieldController.ChangeCellStatus(cell, Players.AI);
             if (CheckResult(cell))
             {
-                Debug.Log("SHOW LOSE MESSAGE");
+                var currentScores = _databaseController.PlayerScores.Value;
+                _endGameController.DisplayDefeat(currentScores, currentScores - ScoresForDefeat);
+                _databaseController.PlayerScores.Value = currentScores - ScoresForDefeat;
             }
         }
     }

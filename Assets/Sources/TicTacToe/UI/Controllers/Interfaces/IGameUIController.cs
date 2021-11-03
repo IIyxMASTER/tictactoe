@@ -6,6 +6,9 @@ namespace Sources.TicTacToe.UI.Controllers.Interfaces
     {
         void Show();
         void Hide();
+        void ClickExitButton();
+        void ClickOptionButton();
 
+        void HideRightColumn();
     }
 }

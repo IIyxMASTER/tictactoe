@@ -6,5 +6,6 @@ namespace Sources.TicTacToe.Controllers.Interfaces
     {
         void StartGame();
         void OnCellClick(Cell cellModel);
+        void Init();
     }
 }

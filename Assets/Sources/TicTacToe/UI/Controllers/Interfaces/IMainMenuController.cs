@@ -6,5 +6,7 @@
         void HideView();
         void OnClickOptions();
         void OnClickPlay();
+
+        void SubscribeOnInputEvents();
     }
 }

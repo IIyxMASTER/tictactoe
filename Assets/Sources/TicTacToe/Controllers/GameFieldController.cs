@@ -5,6 +5,7 @@ using Sources.TicTacToe.Views;
 using Sources.TicTacToe.Views.Interfaces;
 using UnityEngine;
 using Zenject;
+#pragma warning disable 0649
 
 namespace Sources.TicTacToe.Controllers
 {
@@ -21,6 +22,11 @@ namespace Sources.TicTacToe.Controllers
 
         private bool _isCellsCreated = false;
 
+        public void ClearCells()
+        {
+            Format();
+        }
+        
         public void CreateCells()
         {
             if (_isCellsCreated)

@@ -12,7 +12,7 @@ using UnityEngine;
 using Zenject;
 
 // ReSharper disable ClassNeverInstantiated.Global
-
+#pragma warning disable 0649
 namespace Sources.TicTacToe.UI.Controllers
 {
     public class LevelLoaderController : ILevelLoaderController
@@ -49,18 +49,19 @@ namespace Sources.TicTacToe.UI.Controllers
             {
                 yield return Timing.WaitForSeconds(fakeLoadTime[i]);
                 yield return Timing.WaitUntilDone(
-                    AnimateSlider(fakeResources[i], (float) i / (fakeResources.Length-1)));
+                    AnimateSlider(fakeResources[i], (float) i / (fakeResources.Length - 1)));
             }
 
             yield return Timing.WaitUntilDone(EndSliderAnimation(() =>
             {
                 _levelLoaderView.HideView();
                 _mainMenuController.ShowView();
+                
             }));
         }
 
         public float ShowAnimation => Timing.WaitUntilDone(_maskView.Show(_levelLoaderView.AnimationShowTime));
-        public  float HideAnimation => Timing.WaitUntilDone(_maskView.Hide(_levelLoaderView.AnimationShowTime));
+        public float HideAnimation => Timing.WaitUntilDone(_maskView.Hide(_levelLoaderView.AnimationShowTime));
 
         public IEnumerator<float> PlayChangeSceneAnimation(Action onHide,
             int animationSpriteId = 0)
@@ -70,7 +71,26 @@ namespace Sources.TicTacToe.UI.Controllers
             _levelLoaderView.ShowView(animationSpriteId);
             onHide?.Invoke();
             yield return ShowAnimation;
-            //yield return Timing.WaitUntilDone(Timing.RunCoroutine(PlayOpenSceneAnimation(messages, onLoad)));
+        }
+
+        public IEnumerator<float> PlayChangeSceneAnimationWithFakeAction(Action onHide, Action onLoad,
+            string[] fakeActions,
+            int animationSpriteId)
+        {
+            yield return Timing.WaitUntilDone(
+                PlayChangeSceneAnimation(
+                    onHide,
+                    animationSpriteId)
+            );
+            for (int i = 0; i < fakeActions.Length; i++)
+            {
+                yield return Timing.WaitUntilDone(
+                    AnimateSlider(fakeActions[i], (float) i / (fakeActions.Length - 1)));
+            }
+
+            yield return Timing.WaitUntilDone(EndSliderAnimation(
+                onLoad
+            ));
         }
 
         public IEnumerator<float> AnimateSlider(string message, float sliderProgress)
@@ -92,8 +112,5 @@ namespace Sources.TicTacToe.UI.Controllers
             onLoad?.Invoke();
             yield return ShowAnimation;
         }
-
-    
-  
     }
 }

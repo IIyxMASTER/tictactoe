@@ -4,6 +4,7 @@ namespace Sources.TicTacToe.UI.Views.Interfaces
 {
     public interface IGameUIView
     {
+        void HideRight();
         void SetPlayerName(string playerName);
         void SetEnemyName(string enemyName);
         void SetPlayerScores(int scores);
@@ -14,5 +15,8 @@ namespace Sources.TicTacToe.UI.Views.Interfaces
         void ShowView();
         void HideView();
         void SetCamera(Camera uiCamera);
+        
+        void ClickExitButton();
+        void ClickOptionButton();
     }
 }

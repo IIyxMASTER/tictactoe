@@ -4,7 +4,8 @@ using Sources.TicTacToe.UI.Views;
 using Sources.TicTacToe.Views.Interfaces;
 using UnityEngine;
 using Zenject;
-using Zenject.ReflectionBaking.Mono.Cecil;
+
+#pragma warning disable 0649
 
 namespace Sources.TicTacToe.UI.Controllers
 {
@@ -12,12 +13,13 @@ namespace Sources.TicTacToe.UI.Controllers
     {
         [Inject] private IOptionsView _optionsView;
         [Inject] private AvatarViewFactory _avatarViewFactory;
+
         [Inject] private IDatabaseController _database;
         [Inject] private IMessageBoxController _messageBoxController;
-        
+
         public void ShowView()
         {
-            if (_database.PlayerAvatar != "")
+            if (_database.PlayerAvatar.Value != "")
             {
                 DatabaseOnOnChangeAvatar();
             }
@@ -29,19 +31,19 @@ namespace Sources.TicTacToe.UI.Controllers
 
         private void DatabaseOnOnChangeSoundVolume()
         {
-            Volume = _database.SoundVolume;
+            Volume = _database.SoundVolume.Value;
             _optionsView.SetVolumeValue(Volume);
         }
 
         private void DatabaseOnOnChangeName()
         {
-            PlayerName = _database.PlayerName;
+            PlayerName = _database.PlayerName.Value;
             _optionsView.SetPlayerName(PlayerName);
         }
 
         private void DatabaseOnOnChangeAvatar()
         {
-            PlayerAvatar = _database.PlayerAvatar;
+            PlayerAvatar = _database.PlayerAvatar.Value;
             var sprite = _database.GetAvatar(PlayerAvatar);
             _optionsView.SetAvatar(sprite);
         }
@@ -67,15 +69,17 @@ namespace Sources.TicTacToe.UI.Controllers
             _messageBoxController.ShowYesNoBox("Вы хотите сохранить настройки?",
                 () =>
                 {
-                    _database.PlayerAvatar = PlayerAvatar;
-                    _database.PlayerName = PlayerName;
-                    _database.SoundVolume = Volume;
-                    _optionsView.HideView();
-                },
-                () =>
-                {
+                    _database.PlayerAvatar.Value = PlayerAvatar;
+                    _database.PlayerName.Value = PlayerName;
+                    _database.SoundVolume.Value = Volume;
                     
-                });
+                    _messageBoxController.ShowInfoBox("Настройки сохранены!", "Ок", () =>
+                    {
+                        _optionsView.HideView();
+                        _messageBoxController.HideView();
+                    });
+                },
+                () => { });
         }
 
         public void ApplyAvatar()

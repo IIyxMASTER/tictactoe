@@ -4,6 +4,7 @@ using Sources.TicTacToe.Views.Interfaces;
 using TicTacToe.Extensions;
 using UnityEngine;
 using Zenject;
+#pragma warning disable 0649
 
 namespace Sources.TicTacToe.Views
 {

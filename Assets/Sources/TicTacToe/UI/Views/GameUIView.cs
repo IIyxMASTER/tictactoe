@@ -1,7 +1,12 @@
-﻿using Sources.TicTacToe.UI.Views.Interfaces;
+﻿using Sources.TicTacToe.UI.Controllers.Interfaces;
+using Sources.TicTacToe.UI.Views.Interfaces;
+using Sources.TicTacToe.Views;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
+
+#pragma warning disable 0649
 
 namespace Sources.TicTacToe.UI.Views
 {
@@ -13,11 +18,18 @@ namespace Sources.TicTacToe.UI.Views
         [SerializeField] private TMP_Text _playerVictoryCountsLabel;
         [SerializeField] private TMP_Text _levelNameLabel;
 
+        [Inject] private IGameUIController _gameUIController;
 
         [SerializeField] private Image _aiAvatarRenderer;
         [SerializeField] private TMP_Text _aiNameLabel;
 
         [SerializeField] private Canvas _canvas;
+        [SerializeField] private GameObject _rightColumn;
+
+        public void HideRight()
+        {
+            _rightColumn.SetActive(false);
+        }
 
         public void SetPlayerName(string playerName)
         {
@@ -37,6 +49,7 @@ namespace Sources.TicTacToe.UI.Views
         public void SetPlayerAvatar(Sprite playerAvatar)
         {
             _playerAvatarRenderer.sprite = playerAvatar;
+            _playerAvatarRenderer.gameObject.SetActive(playerAvatar != null);
         }
 
         public void SetEnemyAvatar(Sprite enemyAvatar)
@@ -57,6 +70,7 @@ namespace Sources.TicTacToe.UI.Views
         public void ShowView()
         {
             _canvas.enabled = true;
+            _rightColumn.SetActive(true);
         }
 
         public void HideView()
@@ -68,6 +82,16 @@ namespace Sources.TicTacToe.UI.Views
         {
             if (_canvas.worldCamera == null)
                 _canvas.worldCamera = uiCamera;
+        }
+
+        public void ClickExitButton()
+        {
+            _gameUIController.ClickExitButton();
+        }
+
+        public void ClickOptionButton()
+        {
+            _gameUIController.ClickOptionButton();
         }
     }
 }

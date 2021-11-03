@@ -1,6 +1,10 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Linq;
+using System.Runtime.InteropServices;
 using Sources.TicTacToe.Controllers.Interfaces;
+using Sources.TicTacToe.Options;
 using UnityEngine;
+
+#pragma warning disable 0649
 
 namespace Sources.TicTacToe.Controllers
 {
@@ -8,55 +12,35 @@ namespace Sources.TicTacToe.Controllers
 
     public class DatabaseController : IDatabaseController
     {
-        class Options
-        {
-            public const string PlayerName = "PlayerName";
-            public const string PlayerAvatar = "PlayerAvatar";
-            public const string SoundVolume = "SoundVolume";
-        }
-
-        public string PlayerAvatar
-        {
-            get => PlayerPrefs.GetString(Options.PlayerAvatar);
-            set
-            {
-                Debug.Log(value);
-                PlayerPrefs.SetString(Options.PlayerAvatar, value);
-                OnChangeAvatar?.Invoke();
-            }
-        }
-
         
-        public string PlayerName
+
+        public void Initialize()
         {
-            get => PlayerPrefs.GetString(Options.PlayerName);
-            set
-            {
-                Debug.Log(value);
-                PlayerPrefs.SetString(Options.PlayerName,value);
-                OnChangeName?.Invoke();
-            }
+            PlayerAvatar = new StringOptionParam("PlayerAvatar");
+            PlayerName = new StringOptionParam("PlayerName");
+            PlayerScores = new IntOptionParam("PlayerScores");
+            SoundVolume = new FloatOptionParam("GameSoundVolume");
+            PlayerVictories = new IntOptionParam("PlayerVictories");
         }
 
-        public float SoundVolume
-        {
-            get => PlayerPrefs.GetFloat(Options.SoundVolume);
-            set
-            {
-                Debug.Log(value);
-                PlayerPrefs.SetFloat(Options.SoundVolume, value);
-                OnChangeSoundVolume?.Invoke();
-            }
-        }
 
-        public event ChangeOptionValueEvent OnChangeName;
-        public event ChangeOptionValueEvent OnChangeSoundVolume;
+        public StringOptionParam PlayerAvatar { get; set; }
+
+
+        public StringOptionParam PlayerName { get; set; }
+        public FloatOptionParam SoundVolume { get; set; }
+        public IntOptionParam PlayerScores { get; set; }
+        public IntOptionParam PlayerVictories { get; set; }
+
         public Sprite GetAvatar(string id)
         {
             var sprite = Resources.Load<Sprite>($"Avatars/{id}");
             return sprite;
         }
 
-        public event ChangeOptionValueEvent OnChangeAvatar;
+        public Sprite GetPlayerAvatar()
+        {
+            return GetAvatar(PlayerAvatar.Value);
+        }
     }
 }

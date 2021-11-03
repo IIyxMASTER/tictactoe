@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using Sources.TicTacToe.Models;
 using Sources.TicTacToe.Views.Interfaces;
 using UnityEngine;
-
+#pragma warning disable 0649
 namespace Sources.TicTacToe.Views
 {
     public class GameFieldView : MonoBehaviour, IGameFieldView
@@ -20,10 +20,12 @@ namespace Sources.TicTacToe.Views
                 {
                     var position = (column + 1) * 3 + (row + 1);
                     var cell = _cells[position];
-                    cell.Model.Column = column + 1;
-                    cell.Model.Row = row + 1;
-                    cell.Model.Status = Cell.CellStatus.Free;
-
+                    var model = cell.Model;
+                    model.Column = column + 1;
+                    model.Row = row + 1;
+                    model.Status = Cell.CellStatus.Free;
+                    cell.Model = model;
+                    
                     var x = column * cellSize + column * padding;
                     var y = row * cellSize + row * padding;
                     cell.SetPosition(new Vector3(x, y, 0));

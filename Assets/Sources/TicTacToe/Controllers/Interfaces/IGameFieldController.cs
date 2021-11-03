@@ -17,6 +17,7 @@ namespace Sources.TicTacToe.Controllers.Interfaces
         List<Cell> GetFreeCells();
         
         void UpdateFieldSize();
+        void ClearCells();
 
         void HideView();
         void ShowView();

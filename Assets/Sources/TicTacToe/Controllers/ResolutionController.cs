@@ -1,6 +1,7 @@
 ﻿using Sources.TicTacToe.Controllers.Interfaces;
 using UnityEngine;
 using Zenject;
+#pragma warning disable 0649
 
 namespace Sources.TicTacToe.Controllers
 {
