@@ -2800,6 +2800,16 @@ PrefabInstance:
       propertyPath: m_text
       value: <sprite=23>
       objectReference: {fileID: 0}
+    - target: {fileID: 8310762479555919015, guid: e8e5c5783aac3aa47b0381de1028fc02,
+        type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310762479555919015, guid: e8e5c5783aac3aa47b0381de1028fc02,
+        type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8310845403440195243, guid: e8e5c5783aac3aa47b0381de1028fc02,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -7607,7 +7617,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558496237}
-  m_CullTransparentMesh: 1
+  m_CullTransparentMesh: 0
 --- !u!1 &1578339062
 GameObject:
   m_ObjectHideFlags: 0
@@ -9641,6 +9651,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: <sprite=32>
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310762479555919015, guid: e8e5c5783aac3aa47b0381de1028fc02,
+        type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310762479555919015, guid: e8e5c5783aac3aa47b0381de1028fc02,
+        type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8310845403440195243, guid: e8e5c5783aac3aa47b0381de1028fc02,
         type: 3}
