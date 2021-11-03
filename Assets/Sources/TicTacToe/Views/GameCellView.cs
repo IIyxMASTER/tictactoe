@@ -1,5 +1,4 @@
-﻿using Sirenix.OdinInspector;
-using Sources.TicTacToe.Controllers.Interfaces;
+﻿using Sources.TicTacToe.Controllers.Interfaces;
 using Sources.TicTacToe.Models;
 using Sources.TicTacToe.Views.Interfaces;
 using UnityEngine;
@@ -9,7 +8,7 @@ using Zenject;
 
 namespace Sources.TicTacToe.Views
 {
-    public class GameCellView : SerializedMonoBehaviour, IGameCellView, IPointerClickHandler
+    public class GameCellView : MonoBehaviour, IGameCellView, IPointerClickHandler
     {
         [SerializeField] private IGameController _gameController;
 

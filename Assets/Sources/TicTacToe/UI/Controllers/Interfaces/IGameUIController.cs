@@ -1,6 +1,4 @@
-﻿using Sirenix.OdinInspector;
-
-namespace Sources.TicTacToe.UI.Controllers.Interfaces
+﻿namespace Sources.TicTacToe.UI.Controllers.Interfaces
 {
     public interface IGameUIController
     {

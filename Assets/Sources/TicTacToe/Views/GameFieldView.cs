@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using Sources.TicTacToe.Models;
 using Sources.TicTacToe.Views.Interfaces;
 using UnityEngine;
@@ -11,7 +10,6 @@ namespace Sources.TicTacToe.Views
         [SerializeField] private List<IGameCellView> _cells;
         [SerializeField] private Transform _container;
 
-        [Button]
         public void Format(float cellSize, float padding)
         {
             for (int column = -1; column < 2; column++)

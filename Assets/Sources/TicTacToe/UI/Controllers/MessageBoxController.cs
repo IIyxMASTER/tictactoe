@@ -5,6 +5,7 @@ using Sources.TicTacToe.UI.Views;
 using Sources.TicTacToe.UI.Views.Interfaces;
 using UnityEngine;
 using Zenject;
+#pragma warning disable 0649
 
 namespace Sources.TicTacToe.UI.Controllers
 {
